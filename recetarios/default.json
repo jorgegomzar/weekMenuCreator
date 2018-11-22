@@ -1,1 +1,27 @@
-[{"nombre": "Macarrones", "orden": 1, "tipo": "Pasta"}, {"nombre": "Merluza a la plancha", "orden": 2, "tipo": "Pescado"}, {"nombre": "Lentejas", "orden": 1, "tipo": "Legumbres"}, {"nombre": "Sopa de ajo", "orden": 1, "tipo": "Sopa"}, {"nombre": "Pollo asado", "orden": 2, "tipo": "Carne"}]
+[
+  {
+    "nombre": "Macarrones",
+    "orden": 1,
+    "tipo": "Pasta"
+  },
+  {
+    "nombre": "Merluza a la plancha",
+    "orden": 2,
+    "tipo": "Pescado"
+  },
+  {
+    "nombre": "Lentejas",
+    "orden": 1,
+    "tipo": "Legumbres"
+  },
+  {
+    "nombre": "Sopa de ajo",
+    "orden": 1,
+    "tipo": "Sopa"
+  },
+  {
+    "nombre": "Pollo asado",
+    "orden": 2,
+    "tipo": "Carne"
+  }
+]

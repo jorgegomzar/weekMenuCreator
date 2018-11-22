@@ -20,40 +20,48 @@ def crearMenuSemanal():
     for dia in semana:
         print(dia)
 
-def crearReceta(nombre):
-    """ Código empleado en creación de menús, platos y recetarios """
-    os.system('cls')
-    m.titulizador(nombre)
-    nombrePlato = input('Nombre del plato: ')
-    while(nombrePlato == ''):
-        print('Tienes que introducir un nombre...\n')
-        nombrePlato = input('Nombre del plato: ')
-    ordenPlato = int(input('Orden del plato (1 o 2): '))
-    while(ordenPlato not in [1, 2]):
-        print('Tienes que introducir un número...\n')
-        ordenPlato = int(input('Orden del plato (1 o 2): '))
-    tipoPlato = input('Tipo del plato: ')
-    while(tipoPlato == ''):
-        print('Tienes que introducir un tipo...\n')
-        tipoPlato = input('Tipo del plato: ')
-    return {
-            "nombre":   nombrePlato,
-            "orden":    ordenPlato,
-            "tipo":     tipoPlato
-            }
-
 def crearRecetario():
-    """ Pide la información necesaria al usuario para poder crear un nuevo recetario """
+    """ Pide información y crea recetario """
     os.system('cls')
     recetario = []
-    nombre_nuevo_recetario = input('Por favor, introduce el nombre del nuevo recetario: ')
+    nombre_nuevo_recetario = input('[-] Por favor, introduce el nombre del nuevo recetario: ')
+    recetario = crearListaPlatos(nombre_nuevo_recetario)
+    jE.crearRecetario(nombre_nuevo_recetario, recetario)
+    return nombre_nuevo_recetario
+
+def crearListaPlatos(nombre):
+    """ Pide al usuario información para crear platos """
+    listaPlatos = []
     while(True):
-        stop = input('¿Parar? (s/otro): ').lower()
+        stop = input('[+] ¿Parar? (s/otro): ').lower()
         if stop == 's':
             break
-        plato = crearReceta(nombre_nuevo_recetario)
-        recetario.append(plato)
-    jE.crearRecetario(nombre_nuevo_recetario, recetario)
+        os.system('cls')
+        m.titulizador(nombre)
+        plato = crearPlato()
+        listaPlatos.append(plato)
+    return listaPlatos
+
+def crearPlato():
+    """ Código empleado en creación de menús, platos y recetarios """
+
+    nombrePlato = input('[+] Nombre del plato: ')
+    while(nombrePlato == ''):
+        print('[-] Tienes que introducir un nombre...\n')
+        nombrePlato = input('[+] Nombre del plato: ')
+    ordenPlato = input('[+] Orden del plato (1 o 2): ')
+    while(ordenPlato not in ['1', '2']):
+        print('[-] Tienes que introducir un número...\n')
+        ordenPlato = input('[+] Orden del plato (1 o 2): ')
+    tipoPlato = input('[+] Tipo del plato: ')
+    while(tipoPlato == ''):
+        print('[-] Tienes que introducir un tipo...\n')
+        tipoPlato = input('[+] Tipo del plato: ')
+    return {
+            "nombre":   nombrePlato,
+            "orden":    int(ordenPlato),
+            "tipo":     tipoPlato
+            }
 
 def opcion1(recetario):
     """ Realiza la comprobación de la existencia de recetarios y ejecuta
@@ -63,41 +71,39 @@ def opcion1(recetario):
         crearMenuSemanal()
         os.system('pause')
     else:
-        print('No existen recetarios, por favor, crea uno.')
+        print('[-] No existen recetarios, por favor, crea uno.')
         os.system('pause')
 
 def opcion2():
-    """ Realiza la comprobación de la existencia de recetarios y ejecuta
-    la funcion de la segunda opcion """
-    compr = os.listdir('./recetarios/')
-    if len(compr) >= 1:
-        crearMenuSemanal()
-        os.system('pause')
-    else:
-        print('No existen recetarios, por favor, crea uno.')
-        os.system('pause')
+    """ Segunda opción """
+    crearMenuSemanal()
+    os.system('pause')
+
 
 def opcion3(recetario):
     """ Llama a las funciones de MOSTRAR Y AÑADIR, y ELIMINA el recetario """
     compr = os.listdir('./recetarios/')
     if len(compr) >= 1:
         m.mostrarOpcion3(recetario)
-        opcion = input('Introduce letra de tu elección: ')
+        opcion = input('[+] Introduce letra de tu elección: ')
         while(opcion.lower() not in ['a', 'b', 'c']):
-            opcion = input('Introduce letra de tu elección: ')
+            opcion = input('[+] Introduce letra de tu elección: ')
         if opcion == 'a':
             jE.mostrarRecetario(recetario)
+            return recetario
         elif opcion == 'b':
-            jE.anyadirRecetas(recetario)
+            anyadirRecetas(recetario)
+            return recetario
         elif opcion == 'c' and recetario.upper() != 'DEFAULT':
-            comp = input('¿Estás seguro de querer borrar el recetario {}? (s/otra) \n'.format(recetario.upper()))
+            comp = input('[+] ¿Estás seguro de querer borrar el recetario {}? (s/otra) \n'.format(recetario.upper()))
             if comp == 's':
                 os.remove('./recetarios/'+recetario+'.json')
+                return ''
         else:
-            print('El recetario DEFAULT no puede ser borrado.')
+            print('[-] El recetario DEFAULT no puede ser borrado.')
             os.system('pause')
     else:
-        print('No existen recetarios, por favor, crea uno.')
+        print('[-] No existen recetarios, por favor, crea uno.')
         os.system('pause')
 
 def opcion4():
@@ -106,24 +112,44 @@ def opcion4():
     lista = os.listdir('./recetarios')
     if len(lista) >= 1:
         os.system('cls')
-        print('Recetarios existentes:')
+        print('[+] Recetarios existentes:')
         for item in lista:
             listaRecetarios.append(item.rstrip('json').rstrip('.'))
         for n, item in enumerate(listaRecetarios):
             print ('{} - {}'.format(n+1, item))
-        recetario = input('Escribe el nombre completo del que elijas: ')
+        recetario = input('[+] Escribe el nombre completo del que elijas: ')
         while(recetario not in listaRecetarios):
-            recetario = input('Escribe el nombre completo del que elijas: ')
+            recetario = input('[+] Escribe el nombre completo del que elijas: ')
     else:
         recetario = 'default'
-        print('No existen recetarios, por favor, crea uno.')
+        print('[-] No existen recetarios, por favor, crea uno.')
         os.system('pause')
     return recetario
 
+def anyadirRecetas(nombre):
+    """ Abre el fichero json, muestra y añade lo que diga el usuario """
+    jE.mostrarRecetario(nombre)
+    os.system('cls')
+    listaPlatosUsuario = crearListaPlatos('Platos a añadir')
+    listaPlatosExistentes = jE.leerRecetario(nombre)
+    listaConcatenada = [*listaPlatosExistentes, *listaPlatosUsuario]
+    os.system('cls')
+    print('[+] ¿Éstos son los platos que quieres guardar en el recetario?')
+    for n, plato in enumerate(listaConcatenada):
+        print('{} - {}: {}, {}'.format(n+1, plato["nombre"], plato["orden"], plato["tipo"]))
+    res = input('Respuesta: (s/n) ')
+    while(res.lower() not in ['s', 'n']):
+        res = input('Respuesta: (s/n) ')
+    if res.lower() == 's':
+        os.remove('./recetarios/{}.json'.format(nombre))
+        jE.crearRecetario(nombre, listaConcatenada)
+
 if __name__ == "__main__":
     """ Carga los menús """
-    recetario = 'default'
+    recetario = ''
     while(True):
+        if recetario == '':
+            recetario = 'default'
         m.menuInicial(recetario)
         opcion = input('\nOpción: ')
         if opcion == '0':     # SALIR OK
@@ -134,11 +160,11 @@ if __name__ == "__main__":
         elif opcion == '2':     # MENU DESDE INPUT DE USUARIO
             opcion2()
         elif opcion == '3':     # VER/ AÑADIR / BORRAR
-            opcion3(recetario)
+            recetario = opcion3(recetario)
         elif opcion == '4':     # CAMBIAR RECETARIO
             recetario = opcion4()
         elif opcion == '5':     # CREAR RECETARIO OK
-            crearRecetario()
+            recetario = crearRecetario()
         else:
             print('Opción no válida.')
             os.system('pause')
