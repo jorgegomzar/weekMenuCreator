@@ -21,7 +21,7 @@ def crearMenuSemanal():
         print(dia)
 
 def crearRecetario():
-    """ Pide información y crea recetario """
+    """ Pide información y crea un recetario """
     os.system('cls')
     recetario = []
     nombre_nuevo_recetario = input('[-] Por favor, introduce el nombre del nuevo recetario: ')
@@ -30,7 +30,7 @@ def crearRecetario():
     return nombre_nuevo_recetario
 
 def crearListaPlatos(nombre):
-    """ Pide al usuario información para crear platos """
+    """ Pide al usuario información para crear una lista de platos """
     listaPlatos = []
     while(True):
         stop = input('[+] ¿Parar? (s/otro): ').lower()
@@ -44,7 +44,6 @@ def crearListaPlatos(nombre):
 
 def crearPlato():
     """ Código empleado en creación de menús, platos y recetarios """
-
     nombrePlato = input('[+] Nombre del plato: ')
     while(nombrePlato == ''):
         print('[-] Tienes que introducir un nombre...\n')
@@ -159,9 +158,9 @@ if __name__ == "__main__":
             opcion1(recetario)
         elif opcion == '2':     # MENU DESDE INPUT DE USUARIO
             opcion2()
-        elif opcion == '3':     # VER/ AÑADIR / BORRAR
+        elif opcion == '3':     # VER / AÑADIR / BORRAR OK
             recetario = opcion3(recetario)
-        elif opcion == '4':     # CAMBIAR RECETARIO
+        elif opcion == '4':     # CAMBIAR RECETARIO OK
             recetario = opcion4()
         elif opcion == '5':     # CREAR RECETARIO OK
             recetario = crearRecetario()
