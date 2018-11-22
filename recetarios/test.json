@@ -1,1 +1,17 @@
-[{"nombre": "Macarrones", "orden": 1, "tipo": "Pasta"}, {"nombre": "Pizza", "orden": 1, "tipo": "Pasta"}]
+[
+  {
+    "nombre": "Macarrones",
+    "orden": 1,
+    "tipo": "Pasta"
+  },
+  {
+    "nombre": "Pizza",
+    "orden": 1,
+    "tipo": "Pasta"
+  },
+  {
+    "nombre": "Lentejas",
+    "orden": 1,
+    "tipo": "Legumbre"
+  }
+]

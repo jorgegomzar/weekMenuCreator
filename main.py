@@ -100,9 +100,11 @@ def opcion3(recetario):
                 return ''
         else:
             print('[-] El recetario DEFAULT no puede ser borrado.')
+            return 'default'
             os.system('pause')
     else:
         print('[-] No existen recetarios, por favor, crea uno.')
+        return 'default'
         os.system('pause')
 
 def opcion4():
